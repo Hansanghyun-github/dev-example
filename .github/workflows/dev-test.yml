@@ -20,14 +20,18 @@ jobs:
       - run: uname -a
       - run: ls -al
       - run: pwd
-      - name: Build & Deploy
+      - name: test Secret key
         env:
             KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "$KEY" > private_key && chmod 600 private_key
+          cat private_key
+      - name: Build & Deploy
+        env:
             HOST: ${{ secrets.HOST }}
             USERNAME: ${{ secrets.USER }}
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+          ssh -i private_key ${USERNAME}@${HOST}
 
           # after connecting aws ec2
           cd dev-example
