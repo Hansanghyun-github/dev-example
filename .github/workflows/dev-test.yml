@@ -20,31 +20,17 @@ jobs:
       - run: uname -a
       - run: ls -al
       - run: pwd
-      - name: secret key
-        env:
-            KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        run: echo "$KEY" > private_key && chmod 600 private_key
-      - name: test host and user
-        env:
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USER }}
-        run: |
-          echo $HOST
-          echo $USERNAME
-          echo ${HOST}
-          echo ${USERNAME}
-      - name: Build & Deploy
-        env:
-            HOST: ${{ secrets.HOST }}
-            USERNAME: ${{ secrets.USER }}
-        run: |
-          ssh -i private_key $USERNAME@$HOST
-
-          # after connecting aws ec2
-          cd dev-example
-          git fetch --all
-          git pull
-          sudo ./gradlew
-          nohup java -jar build/libs/dev-example-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev > ../spring.out &
+      - name: ssh to ec2
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          script: |
+            cd dev-example
+            git fetch --all
+            git pull
+            sudo ./gradlew build
+            nohup java -jar build/libs/dev-example-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev > ../spring.out &
               
 
