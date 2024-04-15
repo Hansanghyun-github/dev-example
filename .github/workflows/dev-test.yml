@@ -20,12 +20,17 @@ jobs:
       - run: uname -a
       - run: ls -al
       - run: pwd
-      - name: test Secret key
+      - name: secret key
         env:
             KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: echo "$KEY" > private_key && chmod 600 private_key
+      - name: test host and user
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USER }}
         run: |
-          echo "$KEY" > private_key && chmod 600 private_key
-          cat private_key
+          echo HOST
+          echo USERNAME
       - name: Build & Deploy
         env:
             HOST: ${{ secrets.HOST }}
