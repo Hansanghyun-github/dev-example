@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: deploy test
 
 on:
   push:
@@ -14,16 +14,26 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  SSH:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
       - run: uname -a
       - run: ls -al
       - run: pwd
-      - uses: actions/checkout@v4
-      - run: ls -al
+      - name: Build & Deploy
+        env:
+            KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            HOST: ${{ secrets.HOST }}
+            USERNAME: ${{ secrets.USER }}
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}
+
+          # after connecting aws ec2
+          cd dev-example
+          git fetch --all
+          git pull
+          sudo ./gradlew
+          nohup java -jar build/libs/dev-example-0.0.1-SNAPSHOT.jar --spring.profiles.active=dev > ../spring.out &
+              
 
