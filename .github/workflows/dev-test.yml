@@ -29,14 +29,16 @@ jobs:
           HOST: ${{ secrets.HOST }}
           USERNAME: ${{ secrets.USER }}
         run: |
-          echo HOST
-          echo USERNAME
+          echo $HOST
+          echo $USERNAME
+          echo ${HOST}
+          echo ${USERNAME}
       - name: Build & Deploy
         env:
             HOST: ${{ secrets.HOST }}
             USERNAME: ${{ secrets.USER }}
         run: |
-          ssh -i private_key ${USERNAME}@${HOST}
+          ssh -i private_key $USERNAME@$HOST
 
           # after connecting aws ec2
           cd dev-example
