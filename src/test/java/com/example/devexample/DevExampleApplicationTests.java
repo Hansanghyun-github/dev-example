@@ -11,8 +11,8 @@ class DevExampleApplicationTests {
 
 	@Test
 	void contextLoads() {
-		int badAnswer = 3;
-		assertThat(sum(1, 1)).isEqualTo(badAnswer);
+		int goodAnswer = 2;
+		assertThat(sum(1, 1)).isEqualTo(goodAnswer);
 	}
 
 	private static int sum(int a, int b) {
