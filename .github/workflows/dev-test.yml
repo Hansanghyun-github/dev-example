@@ -35,7 +35,7 @@ jobs:
       run: ./gradlew build
       shell: bash
     - name: make zip file
-      run: zip -r ./$GITHUB_SHA.zip build scripts
+      run: zip -r ./$GITHUB_SHA.zip build/libs scripts
     - run: uname -a
     - run: ls -al
       
@@ -47,7 +47,7 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/deploy.zip
       
     - name: ssh to ec2
       uses: appleboy/ssh-action@master
@@ -56,9 +56,9 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         script: |
-          aws s3 mv s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip ./zips/$GITHUB_SHA.zip
+          aws s3 mv s3://spinlog-files/dev-example/deploy.zip ./zips/deploy.zip
           cd zips
-          unzip -o $GITHUB_SHA.zip
+          unzip -o deploy.zip
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
           
