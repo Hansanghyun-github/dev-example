@@ -17,6 +17,5 @@ public class TestController {
     @GetMapping("/health")
     public void healthCheck(){
         log.debug("health check");
-        return;
     }
 }

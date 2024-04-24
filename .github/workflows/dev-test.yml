@@ -18,7 +18,7 @@ env:
   PROJECT_NAME: dev-example
 
 jobs:
-  SSH:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -35,7 +35,7 @@ jobs:
       run: ./gradlew build
       shell: bash
     - name: make zip file
-      run: zip -r ./$GITHUB_SHA.zip build/libs/
+      run: zip -r ./$GITHUB_SHA.zip build scripts
     - run: uname -a
     - run: ls -al
       
@@ -56,6 +56,11 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         script: |
-          ./deploy.sh
-              
+          aws s3 mv s3://$S3_BUCKET_NAME/$PROJECT_NAME/$GITHUB_SHA.zip ./zips/$GITHUB_SHA.zip
+          cd zips
+          unzip -o $GITHUB_SHA.zip
+          chmod +x ./scripts/deploy.sh
+          ./scripts/deploy.sh
+          
+          
 
