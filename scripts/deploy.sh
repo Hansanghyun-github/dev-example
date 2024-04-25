@@ -15,8 +15,8 @@ if [ "$?" -ne 0 ]; then
     return 1
 fi
 
-TARGET_PID=$(sudo lsof -ti :${TARGET_PORT})
+CUR_PID=$(sudo lsof -ti :${TARGET_PORT})
 
 echo "success to execute new version WAS"
-echo "current running WAS's pid is ${TARGET_PID}"
+echo "current running WAS's pid is ${CUR_PID}"
 echo "finish updating WAS version"

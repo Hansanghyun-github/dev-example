@@ -55,6 +55,7 @@ jobs:
           unzip -o deploy.zip
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
-          
+    - name: health check
+      run: curl -f https://www.api-spinlog.shop/health
           
 
