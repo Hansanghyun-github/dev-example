@@ -18,5 +18,5 @@ fi
 TARGET_PID=$(sudo lsof -ti :${TARGET_PORT})
 
 echo "success to execute new version WAS"
-echo "current running WAS's pid is ${TARGET_PORT}"
+echo "current running WAS's pid is ${TARGET_PID}"
 echo "finish updating WAS version"
