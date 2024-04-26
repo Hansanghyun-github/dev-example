@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+source ~/zips/mysql_secret.sh
+
 TARGET_PORT=8080
 TARGET_PID=$(sudo lsof -ti :${TARGET_PORT})
 
