@@ -8,7 +8,6 @@ on:
 
 env:
   S3_BUCKET_NAME: spinlog-files
-  PROJECT_NAME: dev-example
 
 jobs:
   Build:
@@ -27,6 +26,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       shell: bash
+      env:
+        mysql_url: ${{ secrets.MYSQL_URL }}
+        mysql_username: ${{ secrets.MYSQL_USERNAME }}
+        mysql_password: ${{ secrets.MYSQL_PASSWORD }}
     - name: make zip file
       run: zip -r ./$GITHUB_SHA.zip build/libs scripts
     - run: uname -a
@@ -40,7 +43,7 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/deploy.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/dev/deploy.zip
       
     - name: ssh to ec2
       uses: appleboy/ssh-action@master
@@ -49,13 +52,11 @@ jobs:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         script: |
-          aws s3 mv s3://spinlog-files/dev-example/deploy.zip ./zips/deploy.zip
+          aws s3 mv s3://spinlog-files/dev/deploy.zip ./zips/deploy.zip
           echo "success to receive zip file from s3"
           cd zips
           unzip -o deploy.zip
           chmod +x ./scripts/deploy.sh
           ./scripts/deploy.sh
-    - name: health check
-      run: curl -f https://www.api-spinlog.shop/health
           
 
