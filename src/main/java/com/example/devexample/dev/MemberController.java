@@ -14,6 +14,7 @@ public class MemberController {
     private final TestObject to;
 
     private final MapperRepository memberMapper;
+    private final QuerydslRepository querydslRepository;
 
     @PutMapping("/members")
     public void saveMember(@RequestBody String name){
@@ -43,6 +44,11 @@ public class MemberController {
     @GetMapping("/members/name/{name}")
     public List<Member> findByName(@PathVariable String name){
         return memberMapper.findByName(name);
+    }
+
+    @GetMapping("/members/querydsl/{name}")
+    public List<Member> findByNameUsingQuerydsl(@PathVariable String name){
+        return querydslRepository.findByName(name);
     }
 
     @GetMapping("/hello")
