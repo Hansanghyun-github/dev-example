@@ -1,9 +1,6 @@
 env.data: "dev"
 
 spring:
-  config:
-    activate:
-      on-profile: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${mysql_url}
