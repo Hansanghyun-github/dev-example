@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
-//@Transactional
+@Transactional
 class MapperRepositoryTest {
     @Autowired
     MemberMapper memberMapper;
