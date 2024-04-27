@@ -13,6 +13,8 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final TestObject to;
 
+    private final MapperRepository memberMapper;
+
     @PutMapping("/members")
     public void saveMember(@RequestBody String name){
         memberRepository.save(new Member(name));
@@ -36,6 +38,11 @@ public class MemberController {
     public List<Member> getMembers(){
         log.info("GET /members");
         return memberRepository.findAll();
+    }
+
+    @GetMapping("/members/name/{name}")
+    public List<Member> findByName(@PathVariable String name){
+        return memberMapper.findByName(name);
     }
 
     @GetMapping("/hello")
