@@ -1,6 +1,8 @@
 package com.example.devexample.dev;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.DisplayNameGeneration;
+import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,14 +17,15 @@ import static org.assertj.core.api.Assertions.*;
 @ActiveProfiles("test")
 @SpringBootTest
 @Transactional
+@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class MapperRepositoryTest {
     @Autowired
     MemberMapper memberMapper;
     @Autowired
     MemberRepository memberRepository;
+
     @Test
-    @DisplayName("mybatis test")
-    void mybatis_test() throws Exception {
+    void 마이바티스_테스트() throws Exception {
         // given
         Member han1 = new Member("Han10");
         memberRepository.save(han1);
@@ -33,8 +36,8 @@ class MapperRepositoryTest {
         List<Member> list = memberMapper.findByName(han1.getName());
 
         // then
-        System.out.println(list.get(0));
-        assertThat(list.size()).isOne();
-        assertThat(list.get(0)).isEqualTo(han1);
+        assertThat(list)
+                .hasSize(1)
+                .contains(han1);
     }
 }
