@@ -41,7 +41,7 @@ public class MemberController {
         return memberRepository.findAll();
     }
 
-    @GetMapping("/members/name/{name}")
+    @GetMapping("/members/mybatis/{name}")
     public List<Member> findByName(@PathVariable String name){
         return memberMapper.findByName(name);
     }
