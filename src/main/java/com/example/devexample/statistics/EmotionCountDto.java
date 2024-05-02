@@ -1,4 +1,4 @@
-package com.example.devexample.dev.statisticsTest;
+package com.example.devexample.statistics;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -24,16 +24,16 @@ public class EmotionCountDto {
 
     @Getter
     static class EmotionCount {
-        private final Criteria criteria;
+        private final MBTI mbti;
         private final List<Long> emotionCount;
 
         @Builder
-        public EmotionCount(Criteria c, Long e1, Long e2, Long e3) {
-            this.criteria = c;
+        public EmotionCount(MBTI c, Long e1, Long e2, Long e3) {
+            this.mbti = c;
             this.emotionCount = List.of(e1, e2, e3);
         }
 
-        enum Criteria {
+        enum MBTI {
             T,J,F,P
         }
 
