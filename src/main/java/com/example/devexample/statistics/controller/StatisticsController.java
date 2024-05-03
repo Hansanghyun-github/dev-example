@@ -22,6 +22,15 @@ public class StatisticsController {
     @GetMapping("/api/statistics/mbti/emotion/amounts/average")
     public List<MBTIEmotionAmountAverageResponseDto> getAmountAverageStatisticsEachMBTIAndEmotion(@RequestParam(defaultValue = "SPEND") String registerType){
         log.info("average statistics api required");
-        return statisticsService.getMBTIEmotionAmountAverageList(LocalDateTime.now().getMonthValue(), RegisterType.valueOf(registerType));
+        return statisticsService.getMBTIEmotionAmountAverageList(
+                LocalDateTime.now().getMonthValue(),
+                RegisterType.valueOf(registerType));
+    }
+
+    @GetMapping("/api/statistics/mbti/daily/amounts/sum")
+    public List<MBTIDailyAmountSumResponseDto> getAmountSumStatistics(@RequestParam(defaultValue = "SPEND") String registerType) {
+        return statisticsService.getMBTIDailyAmountSumList(
+                LocalDateTime.now().getMonthValue(),
+                RegisterType.valueOf(registerType));
     }
 }

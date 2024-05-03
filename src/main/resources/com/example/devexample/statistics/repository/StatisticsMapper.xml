@@ -23,4 +23,26 @@
         where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
         group by mbtiFactor, a.emotion
     </select>
+
+    <select id="getMBTIDailyAmountSumStatistics" resultType="com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto">
+        select u.ei as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        from articles a join users_mbti_view u on(a.user_id = u.user_id)
+        where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
+        group by mbtiFactor, day
+        union all
+        select u.ns as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        from articles a join users_mbti_view u on(a.user_id = u.user_id)
+        where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
+        group by mbtiFactor, day
+        union all
+        select u.tf as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        from articles a join users_mbti_view u on(a.user_id = u.user_id)
+        where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
+        group by mbtiFactor, day
+        union all
+        select u.pj as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        from articles a join users_mbti_view u on(a.user_id = u.user_id)
+        where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
+        group by mbtiFactor, day
+    </select>
 </mapper>
