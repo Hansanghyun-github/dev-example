@@ -18,4 +18,4 @@ spring:
       enabled: always
 logging.level:
   org.hibernate.SQL: debug
-  com.example.devexample.dev: trace
+  com.example.devexample: trace
