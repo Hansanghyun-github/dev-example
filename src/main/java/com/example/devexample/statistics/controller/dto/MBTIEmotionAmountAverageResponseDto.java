@@ -10,19 +10,19 @@ import java.util.stream.Collectors;
 
 @Getter
 public class MBTIEmotionAmountAverageResponseDto {
-        private MBTIFactor mbti;
+        private MBTIFactor mbtiFactor;
         private List<EmotionAmountAverage> emotionAmountAverages;
 
         @Builder
-        public MBTIEmotionAmountAverageResponseDto(MBTIFactor mbtiFactor, List<EmotionAmountAverage> emotionCount) {
-            this.mbti = mbtiFactor;
-            this.emotionAmountAverages = emotionCount;
+        public MBTIEmotionAmountAverageResponseDto(MBTIFactor mbtiFactor, List<EmotionAmountAverage> emotionAmountAverages) {
+            this.mbtiFactor = mbtiFactor;
+            this.emotionAmountAverages = emotionAmountAverages;
         }
 
         public static MBTIEmotionAmountAverageResponseDto of(String factor, List<MBTIEmotionAmountAverageDto> dtos){
             return MBTIEmotionAmountAverageResponseDto.builder()
                     .mbtiFactor(MBTIFactor.valueOf(factor))
-                    .emotionCount(
+                    .emotionAmountAverages(
                             dtos.stream()
                                     .map(EmotionAmountAverage::of)
                                     .collect(Collectors.toList())
@@ -33,7 +33,7 @@ public class MBTIEmotionAmountAverageResponseDto {
         @Override
         public String toString() {
             return "EmotionAmountAverage\n" +
-                    "mbti=" + mbti + "\n" +
+                    "mbtiFactor =" + mbtiFactor + "\n" +
                     "emotionCount=\n" +
                     emotionAmountAverages.stream()
                             .map(EmotionAmountAverage::toString)
