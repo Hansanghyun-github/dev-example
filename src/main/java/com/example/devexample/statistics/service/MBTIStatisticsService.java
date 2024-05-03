@@ -20,7 +20,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class MBTIStatisticsService {
     private final StatisticsMapper statisticsMapper;
 
-    public List<MBTIEmotionAmountAverageResponseDto> getMBTIEmotionAverageList(int month, RegisterType registerType){
+    public List<MBTIEmotionAmountAverageResponseDto> getMBTIEmotionAmountAverageList(int month, RegisterType registerType){
         List<MBTIEmotionAmountAverageDto> dtos = statisticsMapper.getAverageStatistics(month, registerType);
 
         return dtos.stream()

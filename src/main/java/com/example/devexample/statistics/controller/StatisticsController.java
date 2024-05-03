@@ -1,6 +1,7 @@
 package com.example.devexample.statistics.controller;
 
 import com.example.devexample.required.domain.RegisterType;
+import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponseDto;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponseDto;
 import com.example.devexample.statistics.service.MBTIStatisticsService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class StatisticsController {
     private final MBTIStatisticsService statisticsService;
 
     @GetMapping("/api/statistics/mbti/emotion/amounts/average")
-    public List<MBTIEmotionAmountAverageResponseDto> getAverageStatistics(@RequestParam(defaultValue = "SPEND") String registerType){
+    public List<MBTIEmotionAmountAverageResponseDto> getAmountAverageStatisticsEachMBTIAndEmotion(@RequestParam(defaultValue = "SPEND") String registerType){
         log.info("average statistics api required");
-        return statisticsService.getMBTIEmotionAverageList(LocalDateTime.now().getMonthValue(), RegisterType.valueOf(registerType));
+        return statisticsService.getMBTIEmotionAmountAverageList(LocalDateTime.now().getMonthValue(), RegisterType.valueOf(registerType));
     }
 }
