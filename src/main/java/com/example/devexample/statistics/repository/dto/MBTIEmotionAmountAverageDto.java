@@ -8,7 +8,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class MBTIEmotionAmountAverageDto {
-    private String mbti;
+    private String mbtiFactor;
     private String emotion;
     private Float amountAverage;
 }

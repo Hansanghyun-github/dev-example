@@ -1,6 +1,7 @@
 package com.example.devexample.statistics.service;
 
 import com.example.devexample.required.domain.RegisterType;
+import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponseDto;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponseDto;
 import com.example.devexample.statistics.repository.StatisticsMapper;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
@@ -25,7 +26,7 @@ public class MBTIStatisticsService {
 
         return dtos.stream()
                 .collect(
-                        groupingBy(MBTIEmotionAmountAverageDto::getMbti))
+                        groupingBy(MBTIEmotionAmountAverageDto::getMbtiFactor))
                 .entrySet().stream()
                 .map((e) ->
                         MBTIEmotionAmountAverageResponseDto.of(e.getKey(), e.getValue()))
