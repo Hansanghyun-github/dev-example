@@ -2,25 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.devexample.statistics.repository.StatisticsMapper">
-    <select id="getAverageStatistics" resultType="com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto">
-        select u.ei as mbti, a.emotion, avg(a.amount) as amountAverage
+    <select id="getMBTIEmotionAmountAverageStatistics" resultType="com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto">
+        select u.ei as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
-        group by mbti, a.emotion
+        group by mbtiFactor, a.emotion
         union all
-        select u.ns as mbti, a.emotion, avg(a.amount) as amountAverage
+        select u.ns as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
-        group by mbti, a.emotion
+        group by mbtiFactor, a.emotion
         union all
-        select u.tf as mbti, a.emotion, avg(a.amount) as amountAverage
+        select u.tf as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
-        group by mbti, a.emotion
+        group by mbtiFactor, a.emotion
         union all
-        select u.pj as mbti, a.emotion, avg(a.amount) as amountAverage
+        select u.pj as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and year(a.created_date) = year(now()) and month(a.created_date) = #{month}
-        group by mbti, a.emotion
+        group by mbtiFactor, a.emotion
     </select>
 </mapper>
