@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ class StatisticsControllerTest {
         }
 
         @ParameterizedTest
-        @CsvSource(value = {"SPEND", "SAVE"})
+        @ValueSource(strings = {"SPEND", "SAVE"})
         void registerType_쿼리_파라미터로_SPEND나_SAVE를_입력하면_성공한다(String registerType) throws Exception {
             // when
             mockMvc.perform(get("/api/statistics/mbti/emotion/amounts/average?registerType=" + registerType));
@@ -109,7 +110,7 @@ class StatisticsControllerTest {
         }
 
         @ParameterizedTest
-        @CsvSource(value = {"SPEND", "SAVE"})
+        @ValueSource(strings = {"SPEND", "SAVE"})
         void registerType_쿼리_파라미터로_SPEND나_SAVE를_입력하면_성공한다(String registerType) throws Exception {
             // when
             mockMvc.perform(get("/api/statistics/mbti/daily/amounts/sum?registerType=" + registerType));
@@ -167,7 +168,7 @@ class StatisticsControllerTest {
         }
 
         @ParameterizedTest
-        @CsvSource(value = {"SPEND", "SAVE"})
+        @ValueSource(strings = {"SPEND", "SAVE"})
         void registerType_쿼리_파라미터로_SPEND나_SAVE를_입력하면_성공한다(String registerType) throws Exception {
             // when
             mockMvc.perform(get("/api/statistics/mbti/statisfactions/average?registerType=" + registerType));
