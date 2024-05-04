@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 @Getter
 public class MBTIDailyAmountSumResponse {
-    private MBTIFactor mbti;
+    private MBTIFactor mbtiFactor;
     private List<EmotionAmountSum> emotionAmountSums;
 
     @Builder
     public MBTIDailyAmountSumResponse(MBTIFactor mbtiFactor, List<EmotionAmountSum> emotionAmountSums) {
-        this.mbti = mbtiFactor;
+        this.mbtiFactor = mbtiFactor;
         this.emotionAmountSums = emotionAmountSums;
     }
 
@@ -34,7 +34,7 @@ public class MBTIDailyAmountSumResponse {
     @Override
     public String toString() {
         return "EmotionAmountAverage\n" +
-                "mbti=" + mbti + "\n" +
+                "mbtiFactor=" + mbtiFactor + "\n" +
                 "emotionCount=\n" +
                 emotionAmountSums.stream()
                         .map(EmotionAmountSum::toString)
@@ -45,7 +45,7 @@ public class MBTIDailyAmountSumResponse {
 
     @Getter
     @ToString
-    static class EmotionAmountSum {
+    public static class EmotionAmountSum {
         private LocalDate date;
         private Long amountSum;
 
