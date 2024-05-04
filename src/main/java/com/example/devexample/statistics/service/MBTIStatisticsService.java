@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -69,9 +70,20 @@ public class MBTIStatisticsService {
 
         // 최근 90일 동안 나와 MBTI가 같은 유저가 적은 메모의 빈도수 측정
         String mbti = getUserMBTI();
-        // TODO MBTI가 NONE이면 아예 null로 리턴
-        List<AllMemoDto> memoByMBTI = statisticsMapper.getAllMemosByMBTIBetweenStartDateAndEndDate(mbti, startDate, today);
 
+        if(Objects.isNull(mbti)){
+            return WordFrequencyResponse.builder()
+                    .allWordFrequencies(
+                            wordExtractionService.analyzeWords(
+                                    allMemo.stream()
+                                            .flatMap((m) -> Stream.of(m.getThings(), m.getAny()))
+                                            .toList())
+                    )
+                    .myWordFrequencies(List.of())
+                    .build();
+        }
+
+        List<AllMemoDto> memoByMBTI = statisticsMapper.getAllMemosByMBTIBetweenStartDateAndEndDate(mbti, startDate, today);
 
         return WordFrequencyResponse.builder()
                 .allWordFrequencies(

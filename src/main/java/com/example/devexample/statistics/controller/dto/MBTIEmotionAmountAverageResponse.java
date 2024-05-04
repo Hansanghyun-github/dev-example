@@ -9,15 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Builder
 public class MBTIEmotionAmountAverageResponse {
         private MBTIFactor mbtiFactor;
         private List<EmotionAmountAverage> emotionAmountAverages;
-
-        @Builder
-        public MBTIEmotionAmountAverageResponse(MBTIFactor mbtiFactor, List<EmotionAmountAverage> emotionAmountAverages) {
-            this.mbtiFactor = mbtiFactor;
-            this.emotionAmountAverages = emotionAmountAverages;
-        }
 
         public static MBTIEmotionAmountAverageResponse of(String factor, List<MBTIEmotionAmountAverageDto> dtos){
             return MBTIEmotionAmountAverageResponse.builder()
