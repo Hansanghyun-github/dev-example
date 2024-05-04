@@ -26,11 +26,13 @@ import static java.util.stream.Collectors.groupingBy;
 public class MBTIStatisticsService {
     private final StatisticsMapper statisticsMapper;
     private final WordExtractionService wordExtractionService;
+    private final UserService userService;
     private final int PERIOD_CRITERIA = 90;
 
-    public MBTIStatisticsService(StatisticsMapper statisticsMapper, WordExtractionService wordExtractionService) {
+    public MBTIStatisticsService(StatisticsMapper statisticsMapper, WordExtractionService wordExtractionService, UserService userService) {
         this.statisticsMapper = statisticsMapper;
         this.wordExtractionService = wordExtractionService;
+        this.userService = userService;
     }
 
     public List<MBTIEmotionAmountAverageResponse> getAmountAveragesEachMBTIAndEmotionLast90Days(LocalDate today, RegisterType registerType){
@@ -69,7 +71,7 @@ public class MBTIStatisticsService {
         List<AllMemoDto> allMemo = statisticsMapper.getAllMemosByMBTIBetweenStartDateAndEndDate("none", startDate, today);
 
         // 최근 90일 동안 나와 MBTI가 같은 유저가 적은 메모의 빈도수 측정
-        String mbti = getUserMBTI();
+        String mbti = userService.getUserMBTI();
 
         if(isNone(mbti)){
             return WordFrequencyResponse.builder()
@@ -108,10 +110,5 @@ public class MBTIStatisticsService {
     public List<MBTISatisfactionAverageDto> getSatisfactionAveragesEachMBTILast90Days(LocalDate today, RegisterType registerType){
         LocalDate startDate = today.minusDays(PERIOD_CRITERIA);
         return statisticsMapper.getSatisfactionAveragesEachMBTIBetweenStartDateAndEndDate(registerType, startDate, today);
-    }
-
-    private String getUserMBTI() {
-        // TODO 현재 세션 이용해 인증 한 유저의 mbti 반환해야 함
-        return "ISTJ";
     }
 }
