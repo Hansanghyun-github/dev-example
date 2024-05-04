@@ -59,22 +59,22 @@
     </select>
 
     <select id="getSatisfactionAveragesEachMBTIBetweenStartDateAndEndDate" resultType="com.example.devexample.statistics.repository.dto.MBTISatisfactionAverageDto">
-        select u.ei as mbtiFactor, avg(a.satisfaction)
+        select u.ei as mbtiFactor, round(avg(a.satisfaction), 1) as satisfactionAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor
         union all
-        select u.ns as mbtiFactor, avg(a.satisfaction)
+        select u.ns as mbtiFactor, round(avg(a.satisfaction), 1) as satisfactionAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor
         union all
-        select u.tf as mbtiFactor, avg(a.satisfaction)
+        select u.tf as mbtiFactor, round(avg(a.satisfaction), 1) as satisfactionAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor
         union all
-        select u.pj as mbtiFactor, avg(a.satisfaction)
+        select u.pj as mbtiFactor, round(avg(a.satisfaction), 1) as satisfactionAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor
