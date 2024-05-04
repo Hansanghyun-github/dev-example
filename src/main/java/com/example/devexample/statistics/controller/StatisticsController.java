@@ -4,6 +4,7 @@ import com.example.devexample.required.domain.RegisterType;
 import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponse;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponse;
 import com.example.devexample.statistics.controller.dto.WordFrequencyResponse;
+import com.example.devexample.statistics.repository.dto.MBTISatisfactionAverageDto;
 import com.example.devexample.statistics.service.MBTIStatisticsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,5 +38,12 @@ public class StatisticsController {
     @GetMapping("/api/statistics/mbti/word/frequencies")
     public WordFrequencyResponse getWordFrequencyLast90Days(){
         return statisticsService.getWordFrequenciesLast90Days(LocalDate.now());
+    }
+
+    @GetMapping("/api/statistics/mbti/statisfactions/average")
+    public List<MBTISatisfactionAverageDto> getSatisfactionAveragesEachMBTILast90Days(@RequestParam(defaultValue = "SPEND") String registerType){
+        return statisticsService.getSatisfactionAveragesEachMBTILast90Days(
+                LocalDate.now(),
+                RegisterType.valueOf(registerType));
     }
 }

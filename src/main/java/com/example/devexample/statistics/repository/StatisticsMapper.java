@@ -4,6 +4,7 @@ import com.example.devexample.required.domain.RegisterType;
 import com.example.devexample.statistics.repository.dto.AllMemoDto;
 import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
+import com.example.devexample.statistics.repository.dto.MBTISatisfactionAverageDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,4 +21,7 @@ public interface StatisticsMapper {
 
     // 모든 메모 가져오기
     List<AllMemoDto> getAllMemosByMBTIBetweenStartDateAndEndDate(@Param("mbti") String mbti, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    // mbti별 만족도 평균 그래프
+    List<MBTISatisfactionAverageDto> getSatisfactionAveragesEachMBTIBetweenStartDateAndEndDate(@Param("registerType") RegisterType registerType, @Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

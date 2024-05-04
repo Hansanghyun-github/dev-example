@@ -8,6 +8,7 @@ import com.example.devexample.statistics.repository.StatisticsMapper;
 import com.example.devexample.statistics.repository.dto.AllMemoDto;
 import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
+import com.example.devexample.statistics.repository.dto.MBTISatisfactionAverageDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,6 +87,11 @@ public class MBTIStatisticsService {
                                         .toList())
                 )
                 .build();
+    }
+
+    public List<MBTISatisfactionAverageDto> getSatisfactionAveragesEachMBTILast90Days(LocalDate today, RegisterType registerType){
+        LocalDate startDate = today.minusDays(PERIOD_CRITERIA);
+        return statisticsMapper.getSatisfactionAveragesEachMBTIBetweenStartDateAndEndDate(registerType, startDate, today);
     }
 
     private String getUserMBTI() {
