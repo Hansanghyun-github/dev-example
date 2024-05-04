@@ -71,7 +71,7 @@ public class MBTIStatisticsService {
         // 최근 90일 동안 나와 MBTI가 같은 유저가 적은 메모의 빈도수 측정
         String mbti = getUserMBTI();
 
-        if(Objects.isNull(mbti)){
+        if(isNone(mbti)){
             return WordFrequencyResponse.builder()
                     .allWordFrequencies(
                             wordExtractionService.analyzeWords(
@@ -99,6 +99,10 @@ public class MBTIStatisticsService {
                                         .toList())
                 )
                 .build();
+    }
+
+    private static boolean isNone(String mbti) {
+        return Objects.isNull(mbti) || mbti.equals("none");
     }
 
     public List<MBTISatisfactionAverageDto> getSatisfactionAveragesEachMBTILast90Days(LocalDate today, RegisterType registerType){
