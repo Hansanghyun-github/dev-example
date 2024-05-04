@@ -3,7 +3,9 @@ package com.example.devexample.statistics.service;
 import com.example.devexample.required.domain.RegisterType;
 import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponse;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponse;
+import com.example.devexample.statistics.controller.dto.WordFrequencyResponse;
 import com.example.devexample.statistics.repository.StatisticsMapper;
+import com.example.devexample.statistics.repository.dto.AllMemoDto;
 import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -56,5 +59,37 @@ public class MBTIStatisticsService {
                 .map((e) ->
                         MBTIDailyAmountSumResponse.of(e.getKey(), e.getValue()))
                 .toList();
+    }
+
+    public WordFrequencyResponse getWordFrequenciesLast90Days(LocalDate today){
+        LocalDate startDate = today.minusDays(PERIOD_CRITERIA);
+        // 최근 90일동안 모든 유저가 적은 메모의 빈도수 측정
+        List<AllMemoDto> allMemo = statisticsMapper.getAllMemosByMBTIBetweenStartDateAndEndDate("none", startDate, today);
+
+        // 최근 90일 동안 나와 MBTI가 같은 유저가 적은 메모의 빈도수 측정
+        String mbti = getUserMBTI();
+        // TODO MBTI가 NONE이면 아예 null로 리턴
+        List<AllMemoDto> memoByMBTI = statisticsMapper.getAllMemosByMBTIBetweenStartDateAndEndDate(mbti, startDate, today);
+
+
+        return WordFrequencyResponse.builder()
+                .allWordFrequencies(
+                        wordExtractionService.analyzeWords(
+                                allMemo.stream()
+                                        .flatMap((m) -> Stream.of(m.getThings(), m.getAny()))
+                                        .toList())
+                )
+                .myWordFrequencies(
+                        wordExtractionService.analyzeWords(
+                                memoByMBTI.stream()
+                                        .flatMap((m) -> Stream.of(m.getThings(), m.getAny()))
+                                        .toList())
+                )
+                .build();
+    }
+
+    private String getUserMBTI() {
+        // TODO 현재 세션 이용해 인증 한 유저의 mbti 반환해야 함
+        return "ISTJ";
     }
 }

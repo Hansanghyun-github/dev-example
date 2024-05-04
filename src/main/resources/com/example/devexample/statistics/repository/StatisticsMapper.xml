@@ -45,4 +45,16 @@
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor, day
     </select>
+
+    <select id="getAllMemosByMBTIBetweenStartDateAndEndDate" resultType="com.example.devexample.statistics.repository.dto.AllMemoDto">
+        select a.things
+        from articles a
+        <if test=' !"none".equals(mbti) '>
+            join users u on a.user_id=u.user_id
+        </if>
+        where a.created_date between #{startDate} and #{endDate}
+        <if test=' !"none".equals(mbti) '>
+            and u.mbti = #{mbti}
+        </if>
+    </select>
 </mapper>

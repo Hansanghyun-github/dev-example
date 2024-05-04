@@ -3,6 +3,7 @@ package com.example.devexample.statistics.controller;
 import com.example.devexample.required.domain.RegisterType;
 import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponse;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponse;
+import com.example.devexample.statistics.controller.dto.WordFrequencyResponse;
 import com.example.devexample.statistics.service.MBTIStatisticsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,5 +32,10 @@ public class StatisticsController {
         return statisticsService.getAmountSumsEachMBTIAndDayLast90Days(
                 LocalDate.now(),
                 RegisterType.valueOf(registerType));
+    }
+
+    @GetMapping("/api/statistics/mbti/word/frequencies")
+    public WordFrequencyResponse getWordFrequencyLast90Days(){
+        return statisticsService.getWordFrequenciesLast90Days(LocalDate.now());
     }
 }
