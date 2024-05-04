@@ -13,4 +13,8 @@ public class AllMemoDto {
     // TODO 필드 추가 (지금은 간단하게 적용)
 
     private String any = "anything";
+
+    public AllMemoDto(String things) {
+        this.things = things;
+    }
 }
