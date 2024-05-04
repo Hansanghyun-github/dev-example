@@ -10,5 +10,5 @@ import lombok.*;
 public class MBTIEmotionAmountAverageDto {
     private String mbtiFactor;
     private String emotion;
-    private Float amountAverage;
+    private Long amountAverage;
 }

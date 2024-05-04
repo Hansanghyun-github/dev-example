@@ -41,10 +41,10 @@ public class MBTIEmotionAmountAverageResponse {
     @ToString
     public static class EmotionAmountAverage {
         private Emotion emotion;
-        private Float amountAverage;
+        private Long amountAverage;
 
         @Builder
-        public EmotionAmountAverage(Emotion emotion, Float average) {
+        public EmotionAmountAverage(Emotion emotion, Long average) {
             this.emotion = emotion;
             this.amountAverage = average;
         }

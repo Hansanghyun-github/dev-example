@@ -3,22 +3,22 @@
 
 <mapper namespace="com.example.devexample.statistics.repository.StatisticsMapper">
     <select id="getAmountAveragesEachMBTIAndEmotionBetweenStartDateAndEndDate" resultType="com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto">
-        select u.ei as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
+        select u.ei as mbtiFactor, a.emotion, round(avg(a.amount), -3) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor, a.emotion
         union all
-        select u.ns as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
+        select u.ns as mbtiFactor, a.emotion, round(avg(a.amount), -3) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor, a.emotion
         union all
-        select u.tf as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
+        select u.tf as mbtiFactor, a.emotion, round(avg(a.amount), -3) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor, a.emotion
         union all
-        select u.pj as mbtiFactor, a.emotion, avg(a.amount) as amountAverage
+        select u.pj as mbtiFactor, a.emotion, round(avg(a.amount), -3) as amountAverage
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
         group by mbtiFactor, a.emotion
