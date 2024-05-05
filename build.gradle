@@ -51,6 +51,9 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 
+	// mybatis test
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
+
 	// word cloud
 	implementation 'com.github.shin285:KOMORAN:3.3.9'
 }

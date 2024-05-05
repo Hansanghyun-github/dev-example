@@ -21,6 +21,6 @@ logging.level:
         dev: trace
 
 mybatis:
-  type-aliases-package: com.example.devexample.dev
+  type-aliases-package: com.example.devexample.dev,com.example.devexample.required.domain,com.example.devexample.statistics.view
   configuration:
     map-underscore-to-camel-case: true
