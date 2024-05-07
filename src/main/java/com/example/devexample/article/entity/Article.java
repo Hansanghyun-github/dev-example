@@ -1,5 +1,6 @@
-package com.example.devexample.required.domain;
+package com.example.devexample.article.entity;
 
+import com.example.devexample.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

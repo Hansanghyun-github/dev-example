@@ -1,10 +1,10 @@
 package com.example.devexample.statistics.repository;
 
-import com.example.devexample.required.domain.Article;
-import com.example.devexample.required.domain.RegisterType;
-import com.example.devexample.required.domain.User;
-import com.example.devexample.required.repository.ArticleRepository;
-import com.example.devexample.required.repository.UserRepository;
+import com.example.devexample.article.entity.Article;
+import com.example.devexample.article.entity.RegisterType;
+import com.example.devexample.user.entity.User;
+import com.example.devexample.article.repository.ArticleRepository;
+import com.example.devexample.user.repository.UserRepository;
 import com.example.devexample.statistics.repository.dto.AllMemoDto;
 import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
@@ -27,7 +27,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 

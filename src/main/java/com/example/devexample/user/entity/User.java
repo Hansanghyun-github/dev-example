@@ -1,4 +1,4 @@
-package com.example.devexample.required.domain;
+package com.example.devexample.user.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;

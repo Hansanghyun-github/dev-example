@@ -1,6 +1,6 @@
-package com.example.devexample.required.repository;
+package com.example.devexample.user.repository;
 
-import com.example.devexample.required.domain.User;
+import com.example.devexample.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

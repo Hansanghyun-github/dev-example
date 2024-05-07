@@ -1,6 +1,6 @@
-package com.example.devexample.required.repository;
+package com.example.devexample.article.repository;
 
-import com.example.devexample.required.domain.Article;
+import com.example.devexample.article.entity.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

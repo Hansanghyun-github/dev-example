@@ -1,6 +1,6 @@
 package com.example.devexample.statistics.controller;
 
-import com.example.devexample.required.domain.RegisterType;
+import com.example.devexample.article.entity.RegisterType;
 import com.example.devexample.statistics.controller.dto.MBTIDailyAmountSumResponse;
 import com.example.devexample.statistics.controller.dto.MBTIEmotionAmountAverageResponse;
 import com.example.devexample.statistics.controller.dto.WordFrequencyResponse;

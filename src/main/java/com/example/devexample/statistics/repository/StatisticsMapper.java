@@ -1,6 +1,6 @@
 package com.example.devexample.statistics.repository;
 
-import com.example.devexample.required.domain.RegisterType;
+import com.example.devexample.article.entity.RegisterType;
 import com.example.devexample.statistics.repository.dto.AllMemoDto;
 import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;

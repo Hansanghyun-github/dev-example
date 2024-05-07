@@ -1,4 +1,4 @@
-package com.example.devexample.required.domain;
+package com.example.devexample.article.entity;
 
 public enum RegisterType {
     SPEND, SAVE
