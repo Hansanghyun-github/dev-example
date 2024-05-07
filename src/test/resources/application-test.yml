@@ -2,6 +2,9 @@ env:
   data: "test"
 
 spring:
+  datasource:
+    url: jdbc:h2:mem:test;MODE=MySQL
+    driverClassName: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -17,8 +20,7 @@ logging.level:
   org.hibernate.SQL: debug
   com:
     example:
-      devexample:
-        dev: trace
+      devexample: trace
 
 mybatis:
   type-aliases-package: com.example.devexample.dev,com.example.devexample.required.domain,com.example.devexample.statistics.view

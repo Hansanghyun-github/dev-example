@@ -205,7 +205,7 @@ class MBTIStatisticsServiceTest {
                         final int index = i;
                         r.getEmotionAmountSums()
                                 .forEach(ea -> {
-                                    if(ea.getDate().equals(inputs.get(index).getDay())
+                                    if(ea.getDate().equals(inputs.get(index).getLocalDate())
                                             && ea.getAmountSum().equals(inputs.get(index).getAmountSum()))
                                         visited.set(index, true);
                                 });
