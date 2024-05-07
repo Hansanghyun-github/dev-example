@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -11,6 +14,7 @@ import java.time.LocalDateTime;
 @Table(name = "articles")
 @Getter
 @NoArgsConstructor
+@ToString(exclude = {"user"})
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +33,10 @@ public class Article {
     @Enumerated(value = EnumType.STRING)
     private RegisterType register_type;
 
+    @CreatedDate
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+    @LastModifiedDate
     @Column(name = "edited_date")
     private LocalDateTime editedDate;
 
