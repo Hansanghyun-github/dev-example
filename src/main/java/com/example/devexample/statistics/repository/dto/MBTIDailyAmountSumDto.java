@@ -11,6 +11,6 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class MBTIDailyAmountSumDto {
     private String mbtiFactor;
-    private LocalDate day;
+    private LocalDate localDate;
     private Long amountSum;
 }

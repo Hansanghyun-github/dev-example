@@ -57,7 +57,7 @@ public class MBTIDailyAmountSumResponse {
 
         public static EmotionAmountSum of(MBTIDailyAmountSumDto dto){
             return EmotionAmountSum.builder()
-                    .date(dto.getDay())
+                    .date(dto.getLocalDate())
                     .amountSum(dto.getAmountSum())
                     .build();
         }

@@ -25,25 +25,25 @@
     </select>
 
     <select id="getAmountSumsEachMBTIAndDayBetweenStartDateAndEndDate" resultType="com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto">
-        select u.ei as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        select u.ei as mbtiFactor, date(a.created_date) as localDate, sum(a.amount) as amountSum
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
-        group by mbtiFactor, day
+        group by mbtiFactor, localDate
         union all
-        select u.ns as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        select u.ns as mbtiFactor, date(a.created_date) as localDate, sum(a.amount) as amountSum
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
-        group by mbtiFactor, day
+        group by mbtiFactor, localDate
         union all
-        select u.tf as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        select u.tf as mbtiFactor, date(a.created_date) as localDate, sum(a.amount) as amountSum
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
-        group by mbtiFactor, day
+        group by mbtiFactor, localDate
         union all
-        select u.pj as mbtiFactor, date(a.created_date) as day, sum(a.amount) as amountSum
+        select u.pj as mbtiFactor, date(a.created_date) as localDate, sum(a.amount) as amountSum
         from articles a join users_mbti_view u on(a.user_id = u.user_id)
         where a.register_type = #{registerType} and a.created_date between #{startDate} and #{endDate}
-        group by mbtiFactor, day
+        group by mbtiFactor, localDate
     </select>
 
     <select id="getAllMemosByMBTIBetweenStartDateAndEndDate" resultType="com.example.devexample.statistics.repository.dto.AllMemoDto">
