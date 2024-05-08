@@ -4,7 +4,6 @@ env:
 spring:
   datasource:
     url: jdbc:h2:mem:test;MODE=MySQL
-    driverClassName: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
@@ -17,12 +16,9 @@ spring:
       enabled: always
 
 logging.level:
-  org.hibernate.SQL: debug
+  org.hibernate:
+    SQL: debug
+    orm.jdbc.bind: trace
   com:
     example:
       devexample: trace
-
-mybatis:
-  type-aliases-package: com.example.devexample.dev,com.example.devexample.required.domain,com.example.devexample.statistics.view
-  configuration:
-    map-underscore-to-camel-case: true

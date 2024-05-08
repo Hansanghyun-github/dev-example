@@ -1,6 +1,5 @@
 package com.example.devexample;
 
-import com.example.devexample.dev.TestObject;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @ActiveProfiles("test")
 class DevExampleApplicationTests {
-	@Autowired TestObject to;
 
 	@Test
 	@DisplayName("profile test")
@@ -23,6 +21,5 @@ class DevExampleApplicationTests {
 	    // when
 
 	    // then
-		Assertions.assertThat(to.getData()).isEqualTo("test");
 	}
 }

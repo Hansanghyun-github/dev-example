@@ -1,6 +1,7 @@
 package com.example.devexample.statistics.repository;
 
 import com.example.devexample.article.entity.Article;
+import com.example.devexample.article.entity.BaseEntity;
 import com.example.devexample.article.entity.RegisterType;
 import com.example.devexample.user.entity.User;
 import com.example.devexample.article.repository.ArticleRepository;
@@ -10,6 +11,7 @@ import com.example.devexample.statistics.repository.dto.MBTIDailyAmountSumDto;
 import com.example.devexample.statistics.repository.dto.MBTIEmotionAmountAverageDto;
 import com.example.devexample.statistics.repository.dto.MBTISatisfactionAverageDto;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -90,6 +93,18 @@ class StatisticsMapperTest {
                     period.startDate,
                     period.endDate
             );
+
+            Query nativeQuery = em.createNativeQuery("select u.ei as mbtiFactor, a.emotion, round(avg(a.amount), -3) as amountAverage\n" +
+                    "        from articles a join users_mbti_view u on(a.user_id = u.user_id)\n" +
+                    "        where a.register_type = 'SPEND' and a.created_date between '2024-05-01' and '2024-05-06' \n" +
+                    "        group by mbtiFactor, a.emotion");
+            List<Object[]> resultList = nativeQuery.getResultList();
+            for(Object[] r: resultList){
+                String c = r[0].toString();
+                String s = (String) r[1];
+                Long v = (Long)((Double)r[2]).longValue();
+                System.out.println(c+ " "+s+" "+v);
+            }
 
             // then
             assertThat(dtos)
@@ -746,7 +761,7 @@ class StatisticsMapperTest {
         articleRepository.save(article);
 
         try {
-            Field createdDate = Article.class.getDeclaredField("createdDate");
+            Field createdDate = BaseEntity.class.getDeclaredField("createdDate");
             createdDate.setAccessible(true);
             createdDate.set(article, dateTime);
         } catch (NoSuchFieldException e) {
@@ -767,7 +782,7 @@ class StatisticsMapperTest {
         articleRepository.save(article);
 
         try {
-            Field createdDate = Article.class.getDeclaredField("createdDate");
+            Field createdDate = BaseEntity.class.getDeclaredField("createdDate");
             createdDate.setAccessible(true);
             createdDate.set(article, dateTime);
         } catch (NoSuchFieldException e) {
@@ -789,7 +804,7 @@ class StatisticsMapperTest {
         articleRepository.save(article);
 
         try {
-            Field createdDate = Article.class.getDeclaredField("createdDate");
+            Field createdDate = BaseEntity.class.getDeclaredField("createdDate");
             createdDate.setAccessible(true);
             createdDate.set(article, dateTime);
         } catch (NoSuchFieldException e) {
