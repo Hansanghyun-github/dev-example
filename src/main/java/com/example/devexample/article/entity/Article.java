@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -14,9 +15,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "articles")
 @Getter
+@DynamicUpdate
 @NoArgsConstructor
 @ToString(exclude = {"user"})
-public class Article {
+public class Article extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
@@ -34,13 +36,6 @@ public class Article {
     @Enumerated(value = EnumType.STRING)
     private RegisterType register_type;
 
-    @CreatedDate
-    @Column(name = "created_date")
-    private LocalDateTime createdDate;
-    @LastModifiedDate
-    @Column(name = "edited_date")
-    private LocalDateTime editedDate;
-
     @Builder
     public Article(User user, String things, String emotion, int satisfaction, int amount, String register_type) {
         this.user = user;
@@ -49,7 +44,5 @@ public class Article {
         this.satisfaction = satisfaction;
         this.amount = amount;
         this.register_type = RegisterType.valueOf(register_type);
-        this.createdDate = LocalDateTime.now();
-        this.editedDate = LocalDateTime.now();
     }
 }
